@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>添加类型</title>
+    <link rel="stylesheet" href="./css/public.css">
+    <link rel="stylesheet" href="./css/reg.css">
+    <style>
+        input{
+            margin-top: 40px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>添加分类</h1>
+    <form>
+        <input type="text" placeholder="编号" id="no"><br>
+        <input type="text" placeholder="名称" id="name"><br>
+        <a href="./type.html">&lt; 返回</a>
+        <button type="button" id="add" style="margin-top: 74px;">添加</button>
+    </form>
+    <script src="./js/jquery-3.6.0.js"></script>
+    <script type="text/javascript">
+        $(function(){
+            $("#add").click(function(){
+                $.ajax({
+                    url:'http://localhost:8080/type/typeAdd',
+                    data:{
+                        no:$("#no").val(),
+                        name:$("#name").val()
+                    },
+                    type:'post',
+                    dataType:'json',
+                    success:function(data){
+                        if(data.flag){
+                            alert("添加成功")
+                        }else{
+                            alert(data.msg)
+                        }
+                    }
+                })
+            })
+        })
+    </script>
+</body>
+
+</html>

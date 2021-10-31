@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>登录</title>
+    <link rel="stylesheet" href="./css/public.css">
+    <link rel="stylesheet" href="./css/reg.css">
+</head>
+
+<body>
+    <h1>用户登录</h1>
+    <form style="padding-top: 40px;">
+        <input type="text" placeholder="手机号" id="phone"><br>
+        <input type="text" placeholder="密码" id="pas"><br>
+        <button type="button" id="btn" style="margin: 40px;">登录</button>
+        <button type="button" style="margin: 40px;">去注册</button>
+    </form>
+    <script src="./js/jquery-3.6.0.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            $("#btn").click(function () {
+                $.ajax({
+                    url: 'http://localhost:8080/user/login',
+                    type: 'post',
+                    data: {
+                        phone: $("#phone").val(),
+                        pas: $("#pas").val()
+                    },
+                    dataType: 'json',
+                    success: function (data) {
+                        if (data.flag) {
+                            location.href = "./type.html"
+                        } else {
+                            alert(data.msg)
+                        }
+                    }
+                })
+            })
+        })
+        $("button").eq(1).click(function () {
+            location.href = "./reg.html"
+        })
+    </script>
+</body>
+
+</html>

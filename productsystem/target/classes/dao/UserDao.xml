@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="net.wanho.productsystem.dao.UserDao">
+
+    <select id="select" resultType="user">
+        select * from t_user
+    </select>
+
+    <select id="selectphone" resultType="user">
+        select name,phone,pas,status from t_user where phone = #{phone}
+    </select>
+
+    <insert id="add">
+        insert into t_user(name,phone,pas,status) values (#{name},#{phone},#{pas},#{status})
+    </insert>
+
+    <update id="statu">
+        update t_user set status=#{status} where phone = #{phone}
+    </update>
+</mapper>

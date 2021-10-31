@@ -1,0 +1,72 @@
+table {
+    text-align: center;
+    margin: 0 auto;
+    width: 800px;
+    font-size: 30px;
+    margin-top: 2%;
+    background-color: aliceblue;
+}
+
+tr {
+    margin: 0 auto;
+}
+
+td {
+    border: 1px gray solid;
+    font-size: 18px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+th {
+    border: 1px gray solid;
+    font-size: 18px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+.t {
+    width: 800px;
+    text-align: center;
+    margin: 0 auto;
+    font-size: 18px;
+}
+
+a {
+    font-weight: bolder;
+    font-size: 20px;
+    margin-top: 2%;
+    margin-bottom: 2%;
+}
+
+h1 {
+    margin-top: 5%;
+}
+
+button {
+    width: 55px;
+    height: 40px;
+    overflow: hidden;
+    background-color: white;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    border-radius: 2px;
+}
+
+input {
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    background-color:white;
+    height: 38px;
+    margin-left: 10px;
+    margin-right: -6px;
+    outline: none;
+    margin-top: 8px;
+}
+
+span {
+    position: relative;
+    top: 4px;
+}

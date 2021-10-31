@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="net.wanho.productsystem.dao.TypeDao">
+
+    <select id="select" resultType="type">
+        select * from t_product_type
+    </select>
+
+    <select id="selectByNo" resultType="type">
+        select * from t_product_type where no = #{no}
+    </select>
+
+    <insert id="add">
+        insert into t_product_type(no,name) values (#{no},#{name})
+    </insert>
+
+    <delete id="del">
+        delete from t_product_type where no = #{no}
+    </delete>
+</mapper>

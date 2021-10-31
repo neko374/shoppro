@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>注册</title>
+    <link rel="stylesheet" href="./css/public.css">
+    <link rel="stylesheet" href="./css/reg.css">
+</head>
+
+<body>
+    <h1>用户注册</h1>
+    <form>
+        <input type="text" placeholder="用户名" id="name"><select name="状态" id="status" style="margin-left: -52px;"><option value="0">启用</option><option value="1">停用</option></select><br>
+        <input type="text" placeholder="手机号" id="phone"><br>
+        <input type="text" placeholder="密码" id="pas"><br>
+        <input type="text" placeholder="确认密码" id="qr"><br>
+        <button type="button" id="btn" style="margin: 40px;">注册</button>
+        <button type="button" style="margin: 40px;">去登录</button>
+    </form>
+    <script src="./js/jquery-3.6.0.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            $("#btn").click(function () {
+                $.ajax({
+                    url: 'http://localhost:8080/user/reg',
+                    type: 'post',
+                    data: {
+                        name: $("#name").val(),
+                        pas: $("#pas").val(),
+                        phone: $("#phone").val(),
+                        qr: $("#qr").val(),
+                        status: $("#status option:selected").val()
+                    },
+                    dataType: 'json',
+                    success: function (data) {
+                        if (data.flag) {
+                            location.href = "./login.html"
+                        } else {
+                            alert(data.msg)
+                        }
+                    }
+                })
+            })
+        })
+        $("button").eq(1).click(function () {
+            location.href = "./login.html"
+        })
+    </script>
+</body>
+
+</html>

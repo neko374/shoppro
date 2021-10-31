@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>商品管理</title>
+    <link rel="stylesheet" href="./css/public.css">
+    <link rel="stylesheet" href="./css/list.css">
+</head>
+
+<body>
+    <h1>商品列表</h1>
+    <div class="t"><a href="./type.html" style="float: left;">&lt; 商品类型</a><a href="./user.html"
+            style="float: right;">用户管理 &gt;</a></div>
+    <table>
+        <tr>
+            <th><input type="checkbox" class="all" data-del="2"></th>
+            <th>编号</th>
+            <th>名称</th>
+            <th>价格</th>
+            <th>生产地</th>
+            <th>操作</th>
+        </tr>
+    </table>
+    <div class="t"><button type="button" class="del" style="float: left;width: 110px;">删除选中商品</button><a
+            href="./addshops.html" style="float: right;">添加商品
+            &gt;</a></div>
+    <script src="./js/jquery-3.6.0.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            $.ajax({
+                url: 'http://localhost:8080/shops/shopsList',
+                type: 'post',
+                dataType: 'json',
+                success: function (data) {
+                    console.log(data);
+                    var str = ""
+                    for (var i = 0; i < data.length; i++) {
+                        str = str + "<tr><td><input type='checkbox' class='one' data-del=" + data[i].no + "></td><td>" + data[i].no + "</td><td>" + data[i].name + "</td><td>￥" + data[i].price + "</td><td>" + data[i].address + "</td><td><button type='button' class='del' data_no='" + data[i].no + "'>删除</td><tr>"
+                    }
+                    $("table").eq(0).append(str);
+                    console.log();
+                    for (var i = 0; i < $(".del").length; i++) {
+                        $($(".del")[i]).click(function () {
+                            var no = $(this).attr('data_no');
+                            var flag = confirm("确认删除");
+                            if (flag) {
+                                $.ajax({
+                                    url: 'http://localhost:8080/shops/shopsDel',
+                                    data: {
+                                        no: no
+                                    },
+                                    type: 'post',
+                                    dataType: 'json',
+                                    success: function (data) {
+                                        if (data.flag) {
+                                            location.reload()
+                                        } else {
+                                            alert(data.msg)
+                                        }
+                                    }
+                                })
+                            }
+                        })
+                    }
+                    $(".all").click(function () {
+                        $(".one").prop("checked", $(this).prop("checked"))
+                    })
+                    $('.all').click(function () {
+                        var flag = true;
+                        $(".one").each(function (k, v) {
+                            if (!$(this).prop('checked')) {
+                                flag = false
+                                return false
+                            }
+                        })
+                        $(".all").prop('checked', flag)
+                    })
+                    $(".del").click(function () {
+                        var arr = new Array()
+                        $(".one").each(function (k, v) {
+                            if ($(this).prop('checked')) {
+                                arr.push($(this).attr('data-del'))
+                            }
+                        })
+                        if (arr.length == 0) {
+                            alert("尚未勾选")
+                            return;
+                        }
+                        if (confirm('删除所选?')) {
+                            $.ajax({
+                                url: 'http://localhost:8080/shops/delChoose',
+                                type: 'get',
+                                dataType: 'json',
+                                data: {
+                                    arr: arr
+                                },
+                                success: function (data) {
+                                    console.log(data);
+                                },
+                                error: function () {
+                                    location.reload();
+                                }
+                            })
+                        }
+                    })
+                }
+            })
+        })
+
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>商品类型</title>
+    <link rel="stylesheet" href="./css/public.css">
+    <link rel="stylesheet" href="./css/list.css">
+</head>
+
+<body>
+    <h1>商品分类</h1>
+    <div class="t"><a href="./shops.html" style="float: left;">&lt; 商品管理</a><a href="./user.html"
+            style="float: right;">用户管理 &gt;</a></div>
+    <table>
+        <tr>
+            <td>编号</td>
+            <td>名称</td>
+            <td>操作</td>
+        </tr>
+    </table>
+    <div class="t"><a href="./addtype.html" style="float: left;">添加类型</a></div>
+    <script src="./js/jquery-3.6.0.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            $.ajax({
+                url: 'http://localhost:8080/type/typeList',
+                type: 'post',
+                dataType: 'json',
+                success: function (data) {
+                    console.log(data);
+                    var str = ""
+                    for (var i = 0; i < data.length; i++) {
+                        str = str + "<tr><td>" + data[i].no + "</td><td>" + data[i].name + "</td><td><button type='button' class='del' data_no='" + data[i].no + "'>删除</td><tr>"
+                    }
+                    $("table").eq(0).append(str);
+                    console.log();
+                    for (var i = 0; i < $(".del").length; i++) {
+                        $($(".del")[i]).click(function () {
+                            var no = $(this).attr('data_no');
+                            var flag = confirm("确认删除");
+                            if (flag) {
+                                $.ajax({
+                                    url: 'http://localhost:8080/type/typeDel',
+                                    data: {
+                                        no: no
+                                    },
+                                    type: 'post',
+                                    dataType: 'json',
+                                    success: function (data) {
+                                        if (data.flag) {
+                                            location.href = "./type.html";
+                                        } else {
+                                            alert(data.msg)
+                                        }
+                                    }
+                                })
+                            }
+                        })
+                    }
+                }
+            })
+        })
+    </script>
+</body>
+
+</html>
